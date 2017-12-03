@@ -7,3 +7,8 @@ var/
 npm-debug.log
 yarn-error.log
 .env
+./dist/build.js.map
+./dist/build.js
+ubuntu-xenial-16.04-cloudimg-console.log
+
+
