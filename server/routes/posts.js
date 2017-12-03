@@ -48,7 +48,7 @@ Post.find({}, (err, posts) => {
     router.get('/list/:keyword', (req,res) => {
       console.log("Endpoint: Listing Posts Based on Keyword Match ")
       const regex = { $regex: req.params.keyword }
-     Post.find( {$or: [{title: regex}, {body: regex}] },{_id: 0, user: 0}, function(err, posts) {
+     Post.find( {$or: [{title: regex}, {body: regex}] },{_id: 0}, function(err, posts) {
         if (err) throw err;
         if (!posts || (posts.length<1) ) {
           console.log('Total Posts Found:  ', posts.length)
