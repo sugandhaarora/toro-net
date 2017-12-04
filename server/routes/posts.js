@@ -47,7 +47,8 @@ Post.find({}, (err, posts) => {
     /* Endpoint to provide partial list of posts based on keyword search */
     router.get('/list/:keyword', (req,res) => {
       console.log("Endpoint: Listing Posts Based on Keyword Match ")
-     Post.find({body: {$regex: req.params.keyword}}, function(err, posts) {
+      const regex = { $regex: req.params.keyword }
+     Post.find( {$or: [{title: regex}, {body: regex}] },{_id: 0}, function(err, posts) {
         if (err) throw err;
         if (!posts || (posts.length<1) ) {
           console.log('Total Posts Found:  ', posts.length)
@@ -88,8 +89,6 @@ Post.find({}, (err, posts) => {
     
 
     /* Endpoint: Delete Many Posts Based on  */
-    /* not working yet */
-    /* ~TEMP~ Delete Many Posts */
     router.post('/deleteMany', (req, res) => {   
       /* json data */
       var errorsInDeleting=false;
