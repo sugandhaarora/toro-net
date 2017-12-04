@@ -145,10 +145,11 @@ Post.find({}, (err, posts) => {
 router.post('/create', (req, res) => {
 
 const newPost = new Post({
-  user: req.body.user,
+  user: req.user,
   title: req.body.title,
   body: req.body.body,
-  createdOn: new Date
+  createdOn: new Date,
+  comments: [{commentor:null,content:null}]
 })
 
 console.log("post created");
