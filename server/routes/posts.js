@@ -144,7 +144,7 @@ Post.find({}, (err, posts) => {
      
 
 router.post('/create', (req, res) => {
-
+console.log("Inside create post endpoint");
 const newPost = new Post({
   ///userId: req.user.id,
   userId: req.body.username,

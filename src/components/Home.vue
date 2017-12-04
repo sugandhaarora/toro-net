@@ -58,8 +58,8 @@ export default {
           this.title=""
           this.$router.push('/');
           return
-      }
-    })
+         }
+      })
     }
   },
   mounted() {
