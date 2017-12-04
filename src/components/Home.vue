@@ -34,7 +34,7 @@ export default {
       e.preventDefault()
       this.$validator.validateAll().then((result) => {
         if (result){
-          document.queryselector("addPost").submit();
+          document.querySelector("addPost").submit();
                     alert('post submitted!')
 
           this.$router.push('/');
