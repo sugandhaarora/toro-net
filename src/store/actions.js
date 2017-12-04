@@ -82,7 +82,7 @@ export const logout = ({commit}) => {
 
 export const addPost = ({commit}, postsPayload) => {
   return new Promise((resolve, reject) => {
-  fetch(`/posts/create`), {
+  fetch(`/posts/create`, {
     method: 'POST',
     redirect: 'follow',
     headers: {
@@ -90,21 +90,21 @@ export const addPost = ({commit}, postsPayload) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(postsPayload)
-    .then(res => {
+  }).then(res => {
       resolve(res)
     })
     .then(err => {
       reject(err)
     })
-  }
-})
+  })
 }
+
 
 export const getPosts = ({commit}) => {
   axios.get('/posts')
   .then(function (response) {
-    console.log('Retrieved posts: ', response.data);
-    commit(types.GET_POSTS, response.data)
+    console.log('Retrieved posts(actions): ', response.data.body);
+    commit(types.GET_POSTS, response.data.body)
   })
   .catch(function (error) {
     console.log(error);

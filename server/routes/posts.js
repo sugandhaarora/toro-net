@@ -36,8 +36,9 @@ Post.find({}, (err, posts) => {
     })
   }
   else {
-    console.log('Posts retrieved: ', posts)
-    res.json({ posts })
+    console.log('Posts retrieved (routes): ', posts)
+    //res.json({ posts })
+    res.send(posts)
   }
 })
 })
@@ -145,10 +146,11 @@ Post.find({}, (err, posts) => {
 router.post('/create', (req, res) => {
 
 const newPost = new Post({
-  userId: req.user.id,
+  ///userId: req.user.id,
+  userId: req.body.username,
   title: req.body.title,
   body: req.body.body,
-  createdOn: new Date,
+  createdOn: new Date
 })
 
 console.log("post created");
