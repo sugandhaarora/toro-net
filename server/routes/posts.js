@@ -145,11 +145,10 @@ Post.find({}, (err, posts) => {
 router.post('/create', (req, res) => {
 
 const newPost = new Post({
-  user: req.user,
+  userId: req.user.id,
   title: req.body.title,
   body: req.body.body,
   createdOn: new Date,
-  comments: [{commentor:null,content:null}]
 })
 
 console.log("post created");
@@ -195,7 +194,12 @@ Post.create(newPost, (err) => {
                   res.send(JSON.stringify(result));
                 }
           })
-        })    
+        })
+        
+        router.get('/list/all',(req,res)=> {
+           //code to pull all friends of the req.user
+           //code to show posts of friens order by date descending
+        })
 
 
     return router;

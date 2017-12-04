@@ -20,10 +20,7 @@ var Post = new Schema({
     type: Date,
     required: true
   },
-  comments:[{
-    commentor: String,
-    content: String
-  }]
+  
 })
 
 module.exports = mongoose.model('Post', Post)

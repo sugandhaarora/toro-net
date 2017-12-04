@@ -90,8 +90,12 @@ export const addPost = ({commit}, postsPayload) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(postsPayload)
-    .then(response => response.json())
-    .then(json => commit(types.ADD_POST, json))
+    .then(res => {
+      resolve(res)
+    })
+    .then(err => {
+      reject(err)
+    })
   }
 })
 }
