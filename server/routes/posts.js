@@ -183,7 +183,7 @@ Post.create(newPost, (err) => {
 
     router.get('/:id', (req, res) => {
       
-          Post.find( Post.findById(req.params.id) , {_id:0,username:1,title:1,body:1,},  (err, result) => {
+          Post.find( Post.findById(req.params.id) , {_id:0},  (err, result) => {
             console.log('Endpoint: Read Post')
                 if(err){
                   console.log("Post record doesn't exist!");
@@ -191,7 +191,7 @@ Post.create(newPost, (err) => {
                 }
                 else{
                   console.log('Post found');
-                  res.send(JSON.stringify(result));
+                  res.JSON(result);
                 }
           })
         })    
