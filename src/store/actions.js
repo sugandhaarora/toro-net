@@ -96,7 +96,7 @@ export const addPost = ({commit}, postsPayload) => {
     .then(err => {
       reject(err)
     })
-  }
+  } 
 })
 }
 
@@ -110,3 +110,25 @@ export const getPosts = ({commit}) => {
     console.log(error);
   });
 }
+
+export const searchUsers = ({commit}, searchPayload) => {
+  return new Promise((resolve, reject) => {
+  fetch(`/users/list`), {
+    method: 'POST',
+    redirect: 'follow',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(postsPayload)
+    .then(res => {
+      resolve(res)
+    })
+    .then(err => {
+      reject(err)
+    })
+  } 
+})
+}
+
+
