@@ -5,12 +5,13 @@ const express = require('express'),
       mongoose = require('mongoose'),
       passport = require('passport'),
       session = require('express-session'),
+      cel = require('connect-ensure-login'),
       count = require('./server/routes/count'),
       auth = require('./server/routes/auth'),
       index = require('./server/routes/index'),
       users = require('./server/routes/users'),
       posts = require('./server/routes/posts')
-
+      MongoStore = require('connect-mongo')(session)
 
 
 require('dotenv').load();
@@ -30,7 +31,8 @@ app.use(session({
   secret: 'test-secret',
   resave: false,
   saveUninitialized: true,
-  cookie: {httpOnly: true,maxAge:2495000000}
+  cookie: {httpOnly: true,maxAge:2495000000},
+  store: new Mongostore({url: process.env.Mongo_URI})
 }))
 
 app.use(cookieParser('test-secret'))
