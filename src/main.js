@@ -3,7 +3,9 @@ import Vuex from 'vuex'
 import VeeValidate from 'vee-validate'
 import VueRouter from 'vue-router'
 import store from './store'
+import VueResource from 'vue-resource'
 
+Vue.use(VueResource)
 Vue.use(VeeValidate)
 Vue.use(VueRouter)
 import App from './components/App.vue'

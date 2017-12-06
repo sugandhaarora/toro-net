@@ -3,20 +3,24 @@ const mongoose = require('mongoose'),
       User = require('../models/user')
 
 var Post = new Schema({
-  user: {
+  userId: {
     type: String,
   },
   title: {
     type: String,
+    required: true,
     trim: true
   },
   body: {
     type: String,
+    required: true,
     trim: true
   },
   createdOn:{
-    type: Date
-  }
+    type: Date,
+    required: true
+  },
+  
 })
 
 module.exports = mongoose.model('Post', Post)

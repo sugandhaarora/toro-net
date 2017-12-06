@@ -75,6 +75,7 @@ export default {
       e.preventDefault();
       this.$validator.validateAll().then((result) => {
         if (result){
+          
          const newUser = {
             displayName: this.displayName,
             username: this.username,

@@ -81,28 +81,54 @@ export const logout = ({commit}) => {
 }
 
 export const addPost = ({commit}, postsPayload) => {
-  fetch(`/posts`), {
+  return new Promise((resolve, reject) => {
+  fetch(`/posts/create`, {
     method: 'POST',
+    redirect: 'follow',
     headers: {
       'Accept': 'application/json, text/plain, */*',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({
-      title: title,
-      body: body 
+    body: JSON.stringify(postsPayload)
+  }).then(res => {
+      resolve(res)
     })
-    .then(response => response.json())
-    .then(json => commit(types.ADD_POST, json))
-  }
+    .then(err => {
+      reject(err)
+    })
+  })
 }
+
 
 export const getPosts = ({commit}) => {
   axios.get('/posts')
   .then(function (response) {
-    console.log('Retrieved posts: ', response.data);
-    commit(types.GET_POSTS, response.data)
+    console.log('Retrieved posts(actions): ', response.data.body);
+    commit(types.GET_POSTS, response.data.body)
   })
   .catch(function (error) {
     console.log(error);
   });
 }
+
+export const searchUsers = ({commit}, searchPayload) => {
+  return new Promise((resolve, reject) => {
+  fetch(`/users/list`), {
+    method: 'POST',
+    redirect: 'follow',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(postsPayload)
+    .then(res => {
+      resolve(res)
+    })
+    .then(err => {
+      reject(err)
+    })
+  } 
+})
+}
+
+

@@ -56,12 +56,11 @@ Post.find( {$or: [{title: regex}, {body: regex}] },{_id: 0}, function(err, posts
     res.json({ posts })   
   }
   else {
-    console.log('Total Posts Found:  ', posts.length)
-    console.log('')
-    console.log('POSTS: ')
-    console.log(' ',posts)          
-    res.json({ posts })
-  }        
+    console.log('Posts retrieved (routes): ', posts)
+    //res.json({ posts })
+    res.send(posts)
+  }
+})
 })
 });//End Endpoint
 
@@ -143,12 +142,13 @@ for(var key in req.body.deleteIds){
 
 
 router.post('/create', (req, res) => {
-
+console.log("Inside create post endpoint");
 const newPost = new Post({
-user: req.body.user,
-title: req.body.title,
-body: req.body.body,
-createdOn: new Date
+  ///userId: req.user.id,
+  userId: req.body.username,
+  title: req.body.title,
+  body: req.body.body,
+  createdOn: new Date
 })
 
 console.log("post created");
@@ -197,6 +197,27 @@ router.get('/:id', (req, res) => {
   })    
 
 
-return router;
+    router.get('/:id', (req, res) => {
+      
+          Post.find( Post.findById(req.params.id) ,  (err, result) => {
+            console.log('Endpoint: Read Post')
+                if(err){
+                  console.log("Post record doesn't exist!");
+                  res.status(204).send();
+                }
+                else{
+                  console.log('Post found');
+                  res.send(JSON.stringify(result));
+                }
+          })
+        })
+        
+        router.get('/list/all',(req,res)=> {
+           //code to pull all friends of the req.user
+           //code to show posts of friens order by date descending
+        })
+
+
+    return router;
 })
 ();

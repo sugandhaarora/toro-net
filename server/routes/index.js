@@ -3,17 +3,40 @@ const express = require('express'),
       path = require('path')
 
 router.get('/isauth', (req, res, next) => {
-  //console.log(req.session)
-  res.send(req.user)
+  if (req.user) {
+    res.send(req.user)
+  }
 })
 
 router.get('/logout', (req, res, next) => {
   req.logout()
-  res.redirect('/');
+  res.redirect('/')
 })
 
 router.get('*', (req, res, next) => {
   res.sendFile(path.join(__dirname, '../../dist/index.html'))
-});
+})
 
-module.exports = router
+// Use this function for API endpoint protection.
+const checkAuth = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    next()
+  }
+  else {
+    res.redirect('/login')
+  }
+}
+
+//Use this function for admin only endpoints
+const checkAdmin = (req,res,next) => {
+  if(req.user.isAdmin){
+    next()
+  }
+  else{
+    res.status(400).json({"message":"Needs admin Privilege"});
+  }
+}
+
+module.exports = router 
+module.exports.checkAuth = checkAuth
+module.exports.checkAdmin = checkAdmin
