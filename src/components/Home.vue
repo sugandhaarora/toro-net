@@ -15,10 +15,23 @@
       </textarea>
       <p class="text-danger" align="left" v-if="errors.has('body')">{{ errors.first('body') }}</p>
     </div>
-       <button class="btn btn-primary" type="submit">Post!</button>
+       <button class="btn btn-primary" type="submit" onclick="location.reload()">Post!</button>
     </form>
     <hr>
-   
+    <center>
+   <table class="table table-striped table-borderes">
+   <thead>
+   <tr>
+     <th> title </th>
+     <th> body </th>
+     <th> Post Date </th>
+   </tr>
+   </thead>
+   <tr v-for="posts_alias in posts">
+   <td class="text-left">{{posts_alias.title}}</td>
+   <td class="text-left">{{posts_alias.body}}</td>
+   <td class="text-left">{{posts_alias.createdOn}}</td>
+   </table>
   </div>
   <div class="container" v-else>
     <h4>You must login to access Toro Net!</h4>
@@ -28,16 +41,18 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: 'Home',
   data(){
 
     return {
-      title: ".",
-      body: "."
+     // title: "title",
+     // body: "body"
+     posts: [],
     }
   },
-  
+
   methods: {
     Validate(e) {
       e.preventDefault()
@@ -63,19 +78,14 @@ export default {
     }
   },
   mounted() {
-    /*
-    this.$http.get("http://localhost:3000/posts", function(data,status,request)
-    {
-        console.log("~~GETTING DATA FROM VUE/RESOURCE")
-        console.log(data)
-    })
-    */
-    this.$store.dispatch('getPosts')
-    this.$store.dispatch('getUser')
-    console.log("Here is array of posts co")
-    console.log(this.$store.state.posts)
-    console.log("END~~~~~~~~~~~~~~~~~~~~~~~~POSTS~~~~~~~~~~~~~~")
-
-  },
+ axios.get('http://localhost:3000/posts')
+ .then((response) => {
+ console.log(response.data);
+ this.posts = response.data;
+ })
+.cathc((error) => {
+  console.log(error);
+});
+  }
 }
 </script>
