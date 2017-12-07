@@ -22,14 +22,12 @@
    <table class="table table-striped table-borderes">
    <thead>
    <tr>
-   <th> User Name </th>
      <th> title </th>
      <th> body </th>
      <th> Post Date </th>
    </tr>
    </thead>
    <tr v-for="posts_alias in posts">
-   <td class="text-left">{{posts_alias.userId}}</td>
    <td class="text-left">{{posts_alias.title}}</td>
    <td class="text-left">{{posts_alias.body}}</td>
    <td class="text-left">{{posts_alias.createdOn}}</td>
